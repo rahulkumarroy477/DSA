@@ -39,9 +39,9 @@ void inorder(Node* root, unordered_map<char,string> &ans, string &temp) {
 int main() {
     priority_queue<Node*, vector<Node*>, CompareNodes> minHeap;
     // string str = "COMMITTEE";
-    string str;
-    cout<<"Enter message : ";
-    cin>>str;
+    string str = "COMMITTEE";
+    // cout<<"Enter message : ";
+    // cin>>str;
     int total_len = str.length();
 
     // calculate probability
@@ -76,15 +76,32 @@ int main() {
     }
     Node* root = minHeap.top();
 
-    // levelOrderTraversal(root);
-    // cout<<root->data.first<<" "<<root->data.second<<endl;
+
+
+
+
     unordered_map<char,string> ans;
     string temp;
     inorder(root,ans,temp);
+
+
+    double avglen = 0;
+    for(auto x:ans){
+        int len = x.second.length();
+        avglen+=len*((double)len/total_len);
+    }
+    cout<<"Avg length : "<<avglen<<endl;
+    
+
+
+
+
     cout << "Huffman Codes:\n";
     for (const auto& code : ans) {
         cout << code.first <<"->"<<code.second<< "\n";
     }
+
+
 
     cout<<"Entropy : "<<endl;
     double entropy = 0;
@@ -95,13 +112,18 @@ int main() {
         entropy-=pk;
     }
     cout<<entropy<<endl;
+
+
+    cout<<"Efficiency : "<<entropy/avglen<<endl;
+
+
     // coded message
-    string newMsg;
-    for(int i =0;i<total_len;i++)
-    {
-        newMsg += ans[str[i]];
-    }
-    cout<<str<<" -> "<<newMsg<<endl;
+    // string newMsg;
+    // for(int i =0;i<total_len;i++)
+    // {
+    //     newMsg += ans[str[i]];
+    // }
+    // cout<<str<<" -> "<<newMsg<<endl;
 
 
     
